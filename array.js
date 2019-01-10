@@ -46,4 +46,4 @@ ArrayExtend.prototype.init = function() {
 }
 
 var arrayExtend = new ArrayExtend()
-export default arrayExtend
+module.exports = arrayExtend

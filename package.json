@@ -12,6 +12,7 @@
     "webpack-cli": "^3.2.1"
   },
   "dependencies": {
+    "babel-loader": "^8.0.5",
     "babel-polyfill": "^6.26.0",
     "console-polyfill": "^0.3.0",
     "es3ify-loader": "^0.2.0",

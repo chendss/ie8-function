@@ -1,49 +1,45 @@
-Array.prototype.forEach =
-    Array.prototype.forEach ||
-    function(callback) {
-        var list = this
-        for (var i = 0; i < list.length; i++) {
-            var item = list[i]
-            callback(item, i)
+class ArrayExtend {
+    chunk() {
+        Array.prototype.chunk = function(n) {
+            let array = this
+            let result = []
+            for (let i = 0, len = array.length; i < len; i += n) {
+                result.push(array.slice(i, i + n))
+            }
+            return result
         }
     }
-
-Array.prototype.map =
-    Array.prototype.map ||
-    function(callback) {
-        var list = this
-        var result = []
-        list.forEach(function(item, i) {
-            result.push(callback(item, i))
-        })
-        return result
-    }
-
-var ArrayExtend = function() {
-    this.extend = ["forEach", "map"]
-    this.forEach = function(callback) {
-        var list = this
-        for (var i = 0; i < list.length; i++) {
-            var item = list[i]
-            callback(item, i)
+    removalRepeat() {
+        Array.prototype.removalRepeat = function(key = "") {
+            let array = this
+            if (isValueList(array)) {
+                let result = Array.from(new Set(array))
+                return result
+            } else {
+                let result = []
+                let array_ = array
+                for (let source of array_) {
+                    let list_ = result.filter(
+                        target => target[key] === source[key]
+                    )
+                    if (list_.length === 0) {
+                        result.push(source)
+                    }
+                }
+                return result
+            }
         }
-    }
-    this.map = function(callback) {
-        var list = this
-        var result = []
-        list.forEach(function(item, i) {
-            result.push(callback(item, i))
-        })
-        return result
     }
 }
 
-ArrayExtend.prototype.init = function() {
-    for (var i = 0; i < this.extend.length; i++) {
-        var key = this.extend[i]
-        Array.prototype[key] = Array.prototype[key] || this[key]
+const ArrayInit = function() {
+    let keyList = ["chunk", "removalRepeat"]
+    let arrayExtend = new ArrayExtend()
+    for (let key of keyList) {
+        if (Array.prototype[key] == null) {
+            arrayExtend[key]()
+        }
     }
 }
 
-var arrayExtend = new ArrayExtend()
-module.exports = arrayExtend
+ArrayInit()

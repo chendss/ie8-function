@@ -21,7 +21,12 @@ module.exports = {
         ]
     },
     plugins: [new es3ifyPlugin()],
-    entry: ["babel-polyfill", "object-defineproperty-ie8", "./main.js"],
+    entry: [
+        "./array.js",
+        "console-polyfill",
+        "babel-polyfill",
+        "object-defineproperty-ie8"
+    ],
     output: {
         path: path.resolve(__dirname, "dist"),
         filename: "ie8-extend.js"
@@ -32,6 +37,12 @@ module.exports = {
                 test: /\.js$/,
                 loader: "es3ify-loader",
                 enforce: "post"
+            },
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                enforce: "post",
+                loader: "babel-loader"
             }
         ]
     }

@@ -22,10 +22,10 @@ module.exports = {
     },
     plugins: [new es3ifyPlugin()],
     entry: [
-        "./array.js",
         "console-polyfill",
         "babel-polyfill",
-        "object-defineproperty-ie8"
+        "object-defineproperty-ie8",
+        "./main.js"
     ],
     output: {
         path: path.resolve(__dirname, "dist"),
@@ -35,14 +35,18 @@ module.exports = {
         rules: [
             {
                 test: /\.js$/,
-                loader: "es3ify-loader",
-                enforce: "post"
+                enforce: "post",
+                loader: "babel-loader",
+                exclude: /(node_modules|bower_components)/,
+                options: {
+                    presets: ["es2015-loose"]
+                }
             },
             {
                 test: /\.js$/,
-                exclude: /node_modules/,
-                enforce: "post",
-                loader: "babel-loader"
+                exclude: /(node_modules|bower_components)/,
+                loader: "es3ify-loader",
+                enforce: "post"
             }
         ]
     }

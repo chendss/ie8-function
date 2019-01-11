@@ -6,17 +6,26 @@
   "author": "cyl work <cyl@work.com>",
   "license": "MIT",
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-es2015": "^6.24.1",
     "es3ify-webpack-plugin": "^0.1.0",
     "uglifyjs-webpack-plugin": "^2.1.1",
     "webpack": "^4.28.1",
     "webpack-cli": "^3.2.1"
   },
   "dependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.2.3",
+    "babel-core": "^6.26.3",
     "babel-loader": "^8.0.5",
+    "babel-plugin-transform-remove-strict-mode": "0.0.2",
     "babel-polyfill": "^6.26.0",
+    "babel-preset-es2015-loose": "^8.0.0",
     "console-polyfill": "^0.3.0",
     "es3ify-loader": "^0.2.0",
     "es5-shim": "^4.5.12",
+    "export-from-ie8": "^1.0.5",
     "json3": "^3.3.2",
     "object-defineproperty-ie8": "^1.0.1"
   }

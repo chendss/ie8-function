@@ -30,16 +30,16 @@ class ArrayExtend {
             }
         }
     }
-}
-
-const ArrayInit = function() {
-    let keyList = ["chunk", "removalRepeat"]
-    let arrayExtend = new ArrayExtend()
-    for (let key of keyList) {
-        if (Array.prototype[key] == null) {
-            arrayExtend[key]()
+    init() {
+        let keyList = ["chunk", "removalRepeat"]
+        for (let key of keyList) {
+            if (Array.prototype[key] == null) {
+                this[key]()
+            }
         }
     }
 }
 
-ArrayInit()
+const arrayExtend = new ArrayExtend()
+
+module.exports = arrayExtend

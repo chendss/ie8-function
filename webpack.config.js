@@ -23,8 +23,7 @@ module.exports = {
     plugins: [new es3ifyPlugin()],
     entry: [
         "console-polyfill",
-        "babel-polyfill",
-        "object-defineproperty-ie8",
+        'json3',
         "./main.js"
     ],
     output: {
@@ -33,15 +32,6 @@ module.exports = {
     },
     module: {
         rules: [
-            {
-                test: /\.js$/,
-                enforce: "post",
-                loader: "babel-loader",
-                exclude: /(node_modules|bower_components)/,
-                options: {
-                    presets: ["es2015-loose"]
-                }
-            },
             {
                 test: /\.js$/,
                 exclude: /(node_modules|bower_components)/,

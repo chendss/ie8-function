@@ -122,7 +122,18 @@ var es6ArrayApi = function() {
 }
 
 var arrayExtend = function() {
-    es6ArrayApi()
+    Array.prototype.unique = function() {
+        var sortedArray = this.concat().sort()
+        var seen,
+            result = []
+        for (var i = 0, len = sortedArray.length; i < len; i++) {
+            if (!i || seen !== sortedArray[i]) {
+                result.push(sortedArray[i])
+            }
+            seen = sortedArray[i]
+        }
+        return result
+    }
     Array.prototype.includesPro = function(val, key) {
         var list = this
         if (key == null) {
@@ -134,6 +145,17 @@ var arrayExtend = function() {
             return index !== -1
         }
     }
+    Array.prototype.sum = function(){
+        var list = this
+        var result = 0
+        list.forEach(function(i){
+            result+=i
+        })
+        return result
+    }
 }
 
-module.exports = arrayExtend
+module.exports = {
+    es6: es6ArrayApi,
+    extend: arrayExtend
+}

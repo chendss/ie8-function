@@ -805,53 +805,101 @@
 }, 
 /* 6 */
 /***/ function(module, exports, __webpack_require__) {
-    __webpack_require__(7)();
+    var arrayDict = __webpack_require__(7), objectDict = __webpack_require__(8), stringDict = __webpack_require__(9);
+    !function() {
+        for (var dictList = [ arrayDict, objectDict, stringDict ], i = 0; i < dictList.length; i++) dictList[i].es6();
+        for (i = 0; i < dictList.length; i++) dictList[i].extend();
+    }()
+    /***/;
 }, 
 /* 7 */
 /***/ function(module, exports) {
-    module.exports = function() {
-        Array.prototype.includes || (Array.prototype.includes = function(str) {
-            for (var i = 0; i < this.length; i++) if (this[i] === str) return !0;
-            return !1;
-        }), Array.prototype.slice || (Array.prototype.slice = function(begin, end) {
-            if (end = end || this.length, "[object Array]" === Object.prototype.toString.call(this)) return _slice.call(this, begin, end);
-            var i, size, cloned = [], len = this.length, start = begin || 0;
-            start = 0 <= start ? start : Math.max(0, len + start);
-            var upTo = "number" == typeof end ? Math.min(end, len) : len;
-            if (end < 0 && (upTo = len + end), 0 < (size = upTo - start)) if (cloned = new Array(size), 
-            this.charAt) for (i = 0; i < size; i++) cloned[i] = this.charAt(start + i); else for (i = 0; i < size; i++) cloned[i] = this[start + i];
-            return cloned;
-        }), Array.prototype.findIndex || (Array.prototype.findIndex = function(hander) {
-            for (var i = 0; i < this.length; i++) if (hander(this[i], i)) return i;
-            return -1;
-        }), Array.prototype.find || (Array.prototype.find = function(hander) {
-            var index = this.findIndex(hander);
-            return -1 === index ? null : this[index];
-        }), Array.prototype.forEach || (Array.prototype.forEach = function(hander) {
-            for (var i = 0; i < this.length; i++) hander(this[i], i);
-        }), Array.prototype.every || (Array.prototype.every = function(hander) {
-            for (var i = 0; i < this.length; i++) if (!hander(this[i], i)) return !1;
-            return !0;
-        }), Array.prototype.some || (Array.prototype.some = function(hander) {
-            for (var i = 0; i < this.length; i++) if (hander(this[i], i)) return !0;
-            return !1;
-        }), Array.prototype.filter || (Array.prototype.filter = function(hander) {
-            for (var result = [], i = 0; i < this.length; i++) {
-                var item = this[i];
-                hander(item, i) && result.push(item);
-            }
-            return result;
-        }), Array.prototype.map || (Array.prototype.map = function(hander) {
-            for (var result = [], i = 0; i < this.length; i++) {
-                var item = this[i];
-                result.push(hander(item, i));
-            }
-            return result;
-        }), Array.prototype.includesPro = function(val, key) {
-            return null == key ? this.includes(val) : -1 !== this.findIndex(function(item) {
-                return item[key] === val;
+    module.exports = {
+        es6: function() {
+            Array.prototype.includes || (Array.prototype.includes = function(str) {
+                for (var i = 0; i < this.length; i++) if (this[i] === str) return !0;
+                return !1;
+            }), Array.prototype.slice || (Array.prototype.slice = function(begin, end) {
+                if (end = end || this.length, "[object Array]" === Object.prototype.toString.call(this)) return _slice.call(this, begin, end);
+                var i, size, cloned = [], len = this.length, start = begin || 0;
+                start = 0 <= start ? start : Math.max(0, len + start);
+                var upTo = "number" == typeof end ? Math.min(end, len) : len;
+                if (end < 0 && (upTo = len + end), 0 < (size = upTo - start)) if (cloned = new Array(size), 
+                this.charAt) for (i = 0; i < size; i++) cloned[i] = this.charAt(start + i); else for (i = 0; i < size; i++) cloned[i] = this[start + i];
+                return cloned;
+            }), Array.prototype.findIndex || (Array.prototype.findIndex = function(hander) {
+                for (var i = 0; i < this.length; i++) if (hander(this[i], i)) return i;
+                return -1;
+            }), Array.prototype.find || (Array.prototype.find = function(hander) {
+                var index = this.findIndex(hander);
+                return -1 === index ? null : this[index];
+            }), Array.prototype.forEach || (Array.prototype.forEach = function(hander) {
+                for (var i = 0; i < this.length; i++) hander(this[i], i);
+            }), Array.prototype.every || (Array.prototype.every = function(hander) {
+                for (var i = 0; i < this.length; i++) if (!hander(this[i], i)) return !1;
+                return !0;
+            }), Array.prototype.some || (Array.prototype.some = function(hander) {
+                for (var i = 0; i < this.length; i++) if (hander(this[i], i)) return !0;
+                return !1;
+            }), Array.prototype.filter || (Array.prototype.filter = function(hander) {
+                for (var result = [], i = 0; i < this.length; i++) {
+                    var item = this[i];
+                    hander(item, i) && result.push(item);
+                }
+                return result;
+            }), Array.prototype.map || (Array.prototype.map = function(hander) {
+                for (var result = [], i = 0; i < this.length; i++) {
+                    var item = this[i];
+                    result.push(hander(item, i));
+                }
+                return result;
             });
-        };
+        },
+        extend: function() {
+            Array.prototype.unique = function() {
+                for (var seen, sortedArray = this.concat().sort(), result = [], i = 0, len = sortedArray.length; i < len; i++) i && seen === sortedArray[i] || result.push(sortedArray[i]), 
+                seen = sortedArray[i];
+                return result;
+            }, Array.prototype.includesPro = function(val, key) {
+                return null == key ? this.includes(val) : -1 !== this.findIndex(function(item) {
+                    return item[key] === val;
+                });
+            };
+        }
+    }
+    /***/;
+}, 
+/* 8 */
+/***/ function(module, exports) {
+    module.exports = {
+        es6: function() {
+            Object.keys || (Object.keys = function(obj) {
+                if (obj !== Object(obj)) throw new TypeError("Object.keys called on a non-object");
+                var result = [];
+                for (var key in obj) Object.prototype.hasOwnProperty.call(obj, key) && result.push(key);
+                return result;
+            });
+        },
+        extend: function() {
+            Object.values = function(obj) {
+                return Object.keys(obj).map(function(key) {
+                    return obj[key];
+                });
+            };
+        }
+    }
+    /***/;
+}, 
+/* 9 */
+/***/ function(module, exports) {
+    module.exports = {
+        es6: function() {
+            String.prototype.includes || (String.prototype.includes = function(str) {
+                var returnValue = !1;
+                return -1 !== this.indexOf(str) && (returnValue = !0), returnValue;
+            });
+        },
+        extend: function() {}
     }
     /***/;
 }

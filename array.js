@@ -165,6 +165,34 @@ var arrayExtend = function() {
         })
         return result
     }
+    Array.prototype.average = function() {
+        var list = this
+        var n = list.length
+        var sum = 0
+        list.forEach(function(i) {
+            sum += i
+        })
+        var result = sum / n
+        return result
+    }
+    Array.prototype.chunk = function(n) {
+        var list = this
+        var result = []
+        for (var i = 0, len = list.length; i < len; i += n) {
+            result.push(list.slice(i, i + n))
+        }
+        return result
+    }
+    Array.prototype.nth = function(index) {
+        var list = this
+        var length = list.length
+        if (index >= 0) {
+            return list[index]
+        } else {
+            var index_ = length - Math.abs(index)
+            return list[index_]
+        }
+    }
     Array.arrayDefault = function(n, item) {
         item = item || null
         var result = []

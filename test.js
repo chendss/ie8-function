@@ -31,6 +31,14 @@ var arrayTest = function() {
     console.log([1, 1, 1].unique(), "array.unique")
     console.log("array.range", Array.range(5))
     console.log("array.arrayDefault", Array.arrayDefault(5, "a"))
+    console.log("array.sum", [1, 2, 3].sum())
+    console.log("array.average", [1, 2, 3].average())
+    console.log("array.chunk", [1, 2, 3].chunk(3))
+    console.log("array.nth", [1, 2, 3].nth(-1))
+    console.log(
+        "array.includesPro",
+        [{ fuck: 1 }, { fuck: 2 }].includesPro(2, "fuck")
+    )
 }
 
 var stringTest = function() {
@@ -62,5 +70,3 @@ var testMain = function() {
     stringTest()
     objectTest()
 }
-
-testMain()

@@ -99,55 +99,18 @@
     }, 
     /******/
     /******/ // __webpack_public_path__
-    /******/ __webpack_require__.p = "", __webpack_require__(__webpack_require__.s = 1);
+    /******/ __webpack_require__.p = "", __webpack_require__(__webpack_require__.s = 2);
     /******/}
 /************************************************************************/
 /******/ ([ 
 /* 0 */
-/***/ function(module, exports) {
-    module.exports = {
-        es6: function() {
-            String.prototype.includes || (String.prototype.includes = function(str) {
-                var returnValue = !1;
-                return -1 !== this.indexOf(str) && (returnValue = !0), returnValue;
-            });
-        },
-        extend: function() {
-            // 字符串格式化，替换掉字符串里的｛｝为变量
-            String.prototype.format = function() {
-                var str = this.toString();
-                if (str.includes("{}")) for (var i = 0; i < arguments.length; i++) str = str.replace("{}", arguments[i]);
-                return str;
-            };
-        }
-    }
-    /***/;
-}, 
-/* 1 */
-/***/ function(module, exports, __webpack_require__) {
-    __webpack_require__(2), __webpack_require__(3), module.exports = __webpack_require__(7);
-}, 
-/* 2 */
-/***/ function(module, exports) {
-    // Console-polyfill. MIT license.
-    // https://github.com/paulmillr/console-polyfill
-    // Make it safe to do console.log() always.
-    !function(global) {
-        "use strict";
-        global.console || (global.console = {});
-        for (var prop, method, con = global.console, dummy = function() {}, properties = [ "memory" ], methods = "assert,clear,count,debug,dir,dirxml,error,exception,group,groupCollapsed,groupEnd,info,log,markTimeline,profile,profiles,profileEnd,show,table,time,timeEnd,timeline,timelineEnd,timeStamp,trace,warn".split(","); prop = properties.pop(); ) con[prop] || (con[prop] = {});
-        for (;method = methods.pop(); ) con[method] || (con[method] = dummy);
-        // Using `this` for web workers & supports Browserify / Webpack.
-        }("undefined" == typeof window ? this : window);
-    /***/}, 
-/* 3 */
 /***/ function(module, exports, __webpack_require__) {
     /* WEBPACK VAR INJECTION */ (function(module, global) {
         var __WEBPACK_AMD_DEFINE_RESULT__;
  /*! JSON v3.3.2 | http://bestiejs.github.io/json3 | Copyright 2012-2014, Kit Cambridge | http://kit.mit-license.org */        (function() {
             // Detect the `define` function exposed by asynchronous module loaders. The
             // strict `define` check is necessary for compatibility with `r.js`.
-            var isLoader = __webpack_require__(6), objectTypes = {
+            var isLoader = __webpack_require__(7), objectTypes = {
                 "function": !0,
                 object: !0
             }, freeExports = objectTypes[typeof exports] && exports && !exports.nodeType && exports, root = objectTypes[typeof window] && window || this, freeGlobal = freeExports && objectTypes[typeof module] && module && !module.nodeType && "object" == typeof global && global;
@@ -775,10 +738,69 @@
                 return JSON3;
             }.call(exports, __webpack_require__, exports, module)) === undefined || (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
         }).call(this);
-    }).call(this, __webpack_require__(4)(module), __webpack_require__(5))
+    }).call(this, __webpack_require__(5)(module), __webpack_require__(6))
+    /***/;
+}, 
+/* 1 */
+/***/ function(module, exports) {
+    module.exports = {
+        es6: function() {
+            String.prototype.includes || (String.prototype.includes = function(str) {
+                var returnValue = !1;
+                return -1 !== this.indexOf(str) && (returnValue = !0), returnValue;
+            });
+        },
+        extend: function() {
+            // 字符串格式化，替换掉字符串里的｛｝为变量
+            String.prototype.format = function() {
+                var str = this.toString();
+                if (str.includes("{}")) for (var i = 0; i < arguments.length; i++) str = str.replace("{}", arguments[i]);
+                return str;
+            };
+        }
+    }
+    /***/;
+}, 
+/* 2 */
+/***/ function(module, exports, __webpack_require__) {
+    __webpack_require__(3), __webpack_require__(4), __webpack_require__(0), module.exports = __webpack_require__(8);
+}, 
+/* 3 */
+/***/ function(module, exports) {
+    var origDefineProperty = Object.defineProperty;
+    origDefineProperty && function() {
+        var obj = {};
+        try {
+            for (var _ in origDefineProperty(obj, "x", {
+                enumerable: !1,
+                value: obj
+            }), obj) return !1;
+            return obj.x === obj;
+        } catch (e) {
+            /* this is IE 8. */
+            return !1;
+        }
+    }() || (Object.defineProperty = function(a, b, c) {
+        //IE8支持修改元素节点的属性
+        if (origDefineProperty && 1 == a.nodeType) return origDefineProperty(a, b, c);
+        a[b] = c.value || c.get && c.get();
+    })
     /***/;
 }, 
 /* 4 */
+/***/ function(module, exports) {
+    // Console-polyfill. MIT license.
+    // https://github.com/paulmillr/console-polyfill
+    // Make it safe to do console.log() always.
+    !function(global) {
+        "use strict";
+        global.console || (global.console = {});
+        for (var prop, method, con = global.console, dummy = function() {}, properties = [ "memory" ], methods = "assert,clear,count,debug,dir,dirxml,error,exception,group,groupCollapsed,groupEnd,info,log,markTimeline,profile,profiles,profileEnd,show,table,time,timeEnd,timeline,timelineEnd,timeStamp,trace,warn".split(","); prop = properties.pop(); ) con[prop] || (con[prop] = {});
+        for (;method = methods.pop(); ) con[method] || (con[method] = dummy);
+        // Using `this` for web workers & supports Browserify / Webpack.
+        }("undefined" == typeof window ? this : window);
+    /***/}, 
+/* 5 */
 /***/ function(module, exports) {
     module.exports = function(module) {
         return module.webpackPolyfill || (module.deprecate = function() {}, module.paths = [], 
@@ -796,7 +818,7 @@
         }), module.webpackPolyfill = 1), module;
     };
     /***/}, 
-/* 5 */
+/* 6 */
 /***/ function(module, exports) {
     var g;
     // This works in non-strict mode
@@ -815,7 +837,7 @@
     // easier to handle this case. if(!global) { ...}
         module.exports = g;
 }, 
-/* 6 */
+/* 7 */
 /***/ function(module, exports) {
     /* WEBPACK VAR INJECTION */ (function(__webpack_amd_options__) {
         /* globals __webpack_amd_options__ */
@@ -823,12 +845,12 @@
         /* WEBPACK VAR INJECTION */    }).call(this, {})
     /***/;
 }, 
-/* 7 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
-    var arrayDict = __webpack_require__(8), objectDict = __webpack_require__(9), stringDict = __webpack_require__(0), regExpDict = (stringDict = __webpack_require__(0), 
-    __webpack_require__(10)), httpDict = __webpack_require__(11);
+    var arrayDict = __webpack_require__(9), objectDict = __webpack_require__(10), stringDict = __webpack_require__(1), regExpDict = (stringDict = __webpack_require__(1), 
+    __webpack_require__(11)), httpDict = __webpack_require__(12), toolsDict = __webpack_require__(13);
     !function() {
-        for (var dictList = [ arrayDict, objectDict, stringDict, regExpDict, httpDict ], i = 0; i < dictList.length; i++) (dict = dictList[i]).es6 && dict.es6();
+        for (var dictList = [ arrayDict, objectDict, stringDict, regExpDict, httpDict, toolsDict ], i = 0; i < dictList.length; i++) (dict = dictList[i]).es6 && dict.es6();
         for (i = 0; i < dictList.length; i++) {
             var dict;
             (dict = dictList[i]).extend ? dict.extend() : dict();
@@ -836,7 +858,7 @@
     }()
     /***/;
 }, 
-/* 8 */
+/* 9 */
 /***/ function(module, exports) {
     module.exports = {
         es6: function() {
@@ -897,6 +919,17 @@
                 return this.forEach(function(i) {
                     result += i;
                 }), result;
+            }, Array.prototype.average = function() {
+                var n = this.length, sum = 0;
+                return this.forEach(function(i) {
+                    sum += i;
+                }), sum / n;
+            }, Array.prototype.chunk = function(n) {
+                for (var result = [], i = 0, len = this.length; i < len; i += n) result.push(this.slice(i, i + n));
+                return result;
+            }, Array.prototype.nth = function(index) {
+                var length = this.length;
+                return 0 <= index ? this[index] : this[length - Math.abs(index)];
             }, Array.arrayDefault = function(n, item) {
                 item = item || null;
                 for (var result = [], i = 0; i < n; i++) result.push(item);
@@ -909,7 +942,7 @@
     }
     /***/;
 }, 
-/* 9 */
+/* 10 */
 /***/ function(module, exports) {
     module.exports = {
         es6: function() {
@@ -947,7 +980,7 @@
     }
     /***/;
 }, 
-/* 10 */
+/* 11 */
 /***/ function(module, exports) {
     module.exports = function() {
         RegExp.dict = {
@@ -977,7 +1010,7 @@
     }
     /***/;
 }, 
-/* 11 */
+/* 12 */
 /***/ function(module, exports) {
     window.HttpTools = function() {};
     module.exports = function() {
@@ -997,6 +1030,18 @@
             return Object.forEach(obj, function(key, value) {
                 result.push("{}={}".format(key, value));
             }), result.join("&");
+        };
+    }
+    /***/;
+}, 
+/* 13 */
+/***/ function(module, exports, __webpack_require__) {
+    var json3 = __webpack_require__(0);
+    module.exports = function() {
+        window.$Tools = {
+            deepCopy: function(obj) {
+                return json3.parse(json3.stringify(obj));
+            }
         };
     }
     /***/;

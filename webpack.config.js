@@ -22,6 +22,7 @@ module.exports = {
     },
     plugins: [new es3ifyPlugin()],
     entry: [
+        "object-defineproperty-ie8",
         "console-polyfill",
         'json3',
         "./main.js"

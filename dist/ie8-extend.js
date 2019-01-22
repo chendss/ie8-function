@@ -99,15 +99,35 @@
     }, 
     /******/
     /******/ // __webpack_public_path__
-    /******/ __webpack_require__.p = "", __webpack_require__(__webpack_require__.s = 0);
+    /******/ __webpack_require__.p = "", __webpack_require__(__webpack_require__.s = 1);
     /******/}
 /************************************************************************/
 /******/ ([ 
 /* 0 */
-/***/ function(module, exports, __webpack_require__) {
-    __webpack_require__(1), __webpack_require__(2), module.exports = __webpack_require__(6);
+/***/ function(module, exports) {
+    module.exports = {
+        es6: function() {
+            String.prototype.includes || (String.prototype.includes = function(str) {
+                var returnValue = !1;
+                return -1 !== this.indexOf(str) && (returnValue = !0), returnValue;
+            });
+        },
+        extend: function() {
+            // 字符串格式化，替换掉字符串里的｛｝为变量
+            String.prototype.format = function() {
+                var str = this.toString();
+                if (str.includes("{}")) for (var i = 0; i < arguments.length; i++) str = str.replace("{}", arguments[i]);
+                return str;
+            };
+        }
+    }
+    /***/;
 }, 
 /* 1 */
+/***/ function(module, exports, __webpack_require__) {
+    __webpack_require__(2), __webpack_require__(3), module.exports = __webpack_require__(7);
+}, 
+/* 2 */
 /***/ function(module, exports) {
     // Console-polyfill. MIT license.
     // https://github.com/paulmillr/console-polyfill
@@ -120,14 +140,14 @@
         // Using `this` for web workers & supports Browserify / Webpack.
         }("undefined" == typeof window ? this : window);
     /***/}, 
-/* 2 */
+/* 3 */
 /***/ function(module, exports, __webpack_require__) {
     /* WEBPACK VAR INJECTION */ (function(module, global) {
         var __WEBPACK_AMD_DEFINE_RESULT__;
  /*! JSON v3.3.2 | http://bestiejs.github.io/json3 | Copyright 2012-2014, Kit Cambridge | http://kit.mit-license.org */        (function() {
             // Detect the `define` function exposed by asynchronous module loaders. The
             // strict `define` check is necessary for compatibility with `r.js`.
-            var isLoader = __webpack_require__(5), objectTypes = {
+            var isLoader = __webpack_require__(6), objectTypes = {
                 "function": !0,
                 object: !0
             }, freeExports = objectTypes[typeof exports] && exports && !exports.nodeType && exports, root = objectTypes[typeof window] && window || this, freeGlobal = freeExports && objectTypes[typeof module] && module && !module.nodeType && "object" == typeof global && global;
@@ -755,10 +775,10 @@
                 return JSON3;
             }.call(exports, __webpack_require__, exports, module)) === undefined || (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
         }).call(this);
-    }).call(this, __webpack_require__(3)(module), __webpack_require__(4))
+    }).call(this, __webpack_require__(4)(module), __webpack_require__(5))
     /***/;
 }, 
-/* 3 */
+/* 4 */
 /***/ function(module, exports) {
     module.exports = function(module) {
         return module.webpackPolyfill || (module.deprecate = function() {}, module.paths = [], 
@@ -776,7 +796,7 @@
         }), module.webpackPolyfill = 1), module;
     };
     /***/}, 
-/* 4 */
+/* 5 */
 /***/ function(module, exports) {
     var g;
     // This works in non-strict mode
@@ -795,7 +815,7 @@
     // easier to handle this case. if(!global) { ...}
         module.exports = g;
 }, 
-/* 5 */
+/* 6 */
 /***/ function(module, exports) {
     /* WEBPACK VAR INJECTION */ (function(__webpack_amd_options__) {
         /* globals __webpack_amd_options__ */
@@ -803,16 +823,20 @@
         /* WEBPACK VAR INJECTION */    }).call(this, {})
     /***/;
 }, 
-/* 6 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
-    var arrayDict = __webpack_require__(7), objectDict = __webpack_require__(8), stringDict = __webpack_require__(9);
+    var arrayDict = __webpack_require__(8), objectDict = __webpack_require__(9), stringDict = __webpack_require__(0), regExpDict = (stringDict = __webpack_require__(0), 
+    __webpack_require__(10)), httpDict = __webpack_require__(11);
     !function() {
-        for (var dictList = [ arrayDict, objectDict, stringDict ], i = 0; i < dictList.length; i++) dictList[i].es6();
-        for (i = 0; i < dictList.length; i++) dictList[i].extend();
+        for (var dictList = [ arrayDict, objectDict, stringDict, regExpDict, httpDict ], i = 0; i < dictList.length; i++) (dict = dictList[i]).es6 && dict.es6();
+        for (i = 0; i < dictList.length; i++) {
+            var dict;
+            (dict = dictList[i]).extend ? dict.extend() : dict();
+        }
     }()
     /***/;
 }, 
-/* 7 */
+/* 8 */
 /***/ function(module, exports) {
     module.exports = {
         es6: function() {
@@ -853,6 +877,10 @@
                     result.push(hander(item, i));
                 }
                 return result;
+            }), Array.prototype.indexOf || (Array.prototype.indexOf = function(elt /*, from*/) {
+                var len = this.length >>> 0, from = Number(arguments[1]) || 0;
+                for ((from = from < 0 ? Math.ceil(from) : Math.floor(from)) < 0 && (from += len); from < len; from++) if (from in this && this[from] === elt) return from;
+                return -1;
             });
         },
         extend: function() {
@@ -864,12 +892,24 @@
                 return null == key ? this.includes(val) : -1 !== this.findIndex(function(item) {
                     return item[key] === val;
                 });
+            }, Array.prototype.sum = function() {
+                var result = 0;
+                return this.forEach(function(i) {
+                    result += i;
+                }), result;
+            }, Array.arrayDefault = function(n, item) {
+                item = item || null;
+                for (var result = [], i = 0; i < n; i++) result.push(item);
+                return result;
+            }, Array.range = function(n) {
+                for (var result = [], i = 0; i < n; i++) result.push(i);
+                return result;
             };
         }
     }
     /***/;
 }, 
-/* 8 */
+/* 9 */
 /***/ function(module, exports) {
     module.exports = {
         es6: function() {
@@ -885,21 +925,79 @@
                 return Object.keys(obj).map(function(key) {
                     return obj[key];
                 });
+            }, Object.forEach = function(obj, hander) {
+                Object.keys(obj).forEach(function(key) {
+                    hander(key, obj[key]);
+                });
+            }
+            // 对象的map函数，hander处理返回一个{key,value}对象，如果缺失key键，那么默认使用原来的key，value亦然
+            , Object.map = function(obj, hander) {
+                var result = {};
+                return Object.keys(obj).forEach(function(key) {
+                    var item = hander(key, obj[key]), newKey = item.key || key, value = item.value || obj[key];
+                    result[newKey] = value;
+                }), result;
+            }, Object.filter = function(obj, hander) {
+                var result = {};
+                return Object.keys(obj).forEach(function(key) {
+                    hander(key, obj[key]) && (result[key] = obj[key]);
+                }), result;
             };
         }
     }
     /***/;
 }, 
-/* 9 */
+/* 10 */
 /***/ function(module, exports) {
-    module.exports = {
-        es6: function() {
-            String.prototype.includes || (String.prototype.includes = function(str) {
-                var returnValue = !1;
-                return -1 !== this.indexOf(str) && (returnValue = !0), returnValue;
-            });
-        },
-        extend: function() {}
+    module.exports = function() {
+        RegExp.dict = {
+            "数字": /^[0-9]*$/,
+            "n位的数字": /^\d{n}$/,
+            "至少n位数字": /^\d{n,}$/,
+            "非负整数": /^\d+$/,
+            "整数": /^-?\d+$/,
+            "手机号": /^1[34578]\d{9}$/,
+            "包含中文": /[\u4E00-\u9FA5]/,
+            "网址": /^((https?|ftp|file):\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/,
+            "邮箱": /^[\w.\-]+@(?:[a-z0-9]+(?:-[a-z0-9]+)*\.)+[a-z]{2,3}$/,
+            "邮箱或者手机": /(^[\w.\-]+@(?:[a-z0-9]+(?:-[a-z0-9]+)*\.)+[a-z]{2,3}$)|(^1[3|4|5|8]\d{9}$)/,
+            "电话号码": /^(\(\d{3,4}\)|\d{3,4}-)?\d{7,8}$/,
+            "邮政编码": /[1-9]\d{5}(?!\d)/,
+            "手机或者电话": /(^13[0-9]{9}$|14[0-9]{9}|15[0-9]{9}$|18[0-9]{9}$)|(^0(10|2[0-5789]|\\d{3})\\d{7,8}$)/,
+            "身份证": /^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$|^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/
+        }, RegExp.number = function(str) {
+            return /^[0-9]*$/.test(str);
+        }, RegExp.get = function(str, re) {
+            return (str = str || "").match(re).join("");
+        }, RegExp.replace = function(str, re) {
+            return (str = str || "").replace(re, "");
+        }, RegExp.test = function(str, re) {
+            return str = str || "", re.test(str + "");
+        };
+    }
+    /***/;
+}, 
+/* 11 */
+/***/ function(module, exports) {
+    window.HttpTools = function() {};
+    module.exports = function() {
+        HttpTools.query = function() {
+            var queryStr = window.location.href.split("?")[1];
+            if (!queryStr) return "";
+            var queryList = queryStr.split("&");
+            return function() {
+                var obj = {};
+                return queryList.forEach(function(str) {
+                    var key = str.split("=")[0], value = str.split("=")[1];
+                    obj[key] = value;
+                }), obj;
+            };
+        }, HttpTools.queryStr = function(obj) {
+            var result = [];
+            return Object.forEach(obj, function(key, value) {
+                result.push("{}={}".format(key, value));
+            }), result.join("&");
+        };
     }
     /***/;
 }

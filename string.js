@@ -10,7 +10,19 @@ var es6StringApi = function() {
     }
 }
 
-var stringExtend = function() {}
+var stringExtend = function() {
+    // 字符串格式化，替换掉字符串里的｛｝为变量
+    String.prototype.format = function() {
+        var str = this.toString()
+        var isConversion = str.includes("{}")
+        if (isConversion) {
+            for (var i = 0; i < arguments.length; i++) {
+                str = str.replace("{}", arguments[i])
+            }
+        }
+        return str
+    }
+}
 
 module.exports = {
     es6: es6StringApi,

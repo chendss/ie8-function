@@ -119,6 +119,18 @@ var es6ArrayApi = function() {
             return result
         }
     }
+    if (!Array.prototype.indexOf) {
+        Array.prototype.indexOf = function(elt /*, from*/) {
+            var len = this.length >>> 0
+            var from = Number(arguments[1]) || 0
+            from = from < 0 ? Math.ceil(from) : Math.floor(from)
+            if (from < 0) from += len
+            for (; from < len; from++) {
+                if (from in this && this[from] === elt) return from
+            }
+            return -1
+        }
+    }
 }
 
 var arrayExtend = function() {
@@ -145,12 +157,27 @@ var arrayExtend = function() {
             return index !== -1
         }
     }
-    Array.prototype.sum = function(){
+    Array.prototype.sum = function() {
         var list = this
         var result = 0
-        list.forEach(function(i){
-            result+=i
+        list.forEach(function(i) {
+            result += i
         })
+        return result
+    }
+    Array.arrayDefault = function(n, item) {
+        item = item || null
+        var result = []
+        for (var i = 0; i < n; i++) {
+            result.push(item)
+        }
+        return result
+    }
+    Array.range = function(n) {
+        var result = []
+        for (var i = 0; i < n; i++) {
+            result.push(i)
+        }
         return result
     }
 }
